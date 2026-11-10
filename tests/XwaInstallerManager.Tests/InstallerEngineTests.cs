@@ -193,30 +193,37 @@ public class InstallerEngineTests
     [Fact]
     public void ShortcutHelpers_CreatesPlatformShortcut()
     {
+        // The desktop directory comes from Environment.GetFolderPath, which is
+        // cached per process and ignores HOME on Windows/macOS. Redirecting HOME
+        // therefore only works on Linux, so this test is Linux-only; the other
+        // platforms would write to the real desktop.
+        if (!OperatingSystem.IsLinux())
+        {
+            return;
+        }
+
         string root = TestPaths.CreateTempDirectory();
-        string? originalDesktop = null;
+        string? originalHome = Environment.GetEnvironmentVariable("HOME");
+        string? originalData = Environment.GetEnvironmentVariable("XDG_DATA_HOME");
 
         try
         {
             // Redirect the desktop directory by pointing HOME at the temp folder.
-            originalDesktop = Environment.GetEnvironmentVariable("HOME");
             Environment.SetEnvironmentVariable("HOME", root);
+            Environment.SetEnvironmentVariable("XDG_DATA_HOME", Path.Combine(root, ".local", "share"));
 
             string target = Path.Combine(root, "app");
             File.WriteAllText(target, "#!/bin/sh\n");
 
             XwaInstallerLibCore.Platform.ShortcutHelpers.CreateDesktopShortcut("MyApp", root, target, string.Empty, string.Empty);
 
-            string expectedExtension = XwaInstallerLibCore.Platform.PlatformInfo.IsWindows ? ".lnk"
-                : XwaInstallerLibCore.Platform.PlatformInfo.IsMacOS ? ".command"
-                : ".desktop";
-
-            string shortcut = Path.Combine(XwaInstallerLibCore.Platform.PlatformInfo.GetDesktopDirectory(), "MyApp" + expectedExtension);
+            string shortcut = Path.Combine(root, "MyApp.desktop");
             Assert.True(File.Exists(shortcut), $"Expected shortcut at {shortcut}");
         }
         finally
         {
-            Environment.SetEnvironmentVariable("HOME", originalDesktop);
+            Environment.SetEnvironmentVariable("HOME", originalHome);
+            Environment.SetEnvironmentVariable("XDG_DATA_HOME", originalData);
             TestPaths.TryDelete(root);
         }
     }
