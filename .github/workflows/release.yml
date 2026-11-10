@@ -28,8 +28,31 @@ env:
   PROJECT: src/XwaInstallerManager/XwaInstallerManager.csproj
 
 jobs:
+  # Tests run once, on Linux. The suite covers platform-agnostic logic; running
+  # it on every OS only added platform-specific flakiness (desktop paths, file
+  # modes) without catching anything extra.
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: ${{ env.DOTNET_VERSION }}
+
+      - name: Restore
+        run: dotnet restore XwaInstallerManager.slnx
+
+      - name: Test
+        run: dotnet test XwaInstallerManager.slnx --no-restore --verbosity normal
+
   build:
     name: Build ${{ matrix.rid }}
+    needs: test
     runs-on: ${{ matrix.os }}
     strategy:
       fail-fast: false
@@ -61,9 +84,6 @@ jobs:
 
       - name: Restore
         run: dotnet restore XwaInstallerManager.slnx
-
-      - name: Test
-        run: dotnet test XwaInstallerManager.slnx --no-restore --verbosity normal
 
       - name: Publish
         shell: bash
