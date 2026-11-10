@@ -1,0 +1,40 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XwaInstallerLibCore"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="620"
+        x:Class="XwaInstallerLibCore.WizardWindow"
+        Title="Setup"
+        Width="820" Height="640"
+        MinWidth="640" MinHeight="520"
+        WindowStartupLocation="CenterScreen"
+        UseLayoutRounding="True">
+    <Grid RowDefinitions="*,Auto">
+        <!-- Page host -->
+        <Panel Name="pageHost" Grid.Row="0" ClipToBounds="True"/>
+
+        <!-- Navigation bar -->
+        <Border Grid.Row="1" BorderBrush="{DynamicResource SystemControlForegroundBaseLowBrush}" BorderThickness="0,1,0,0"
+                Background="{DynamicResource SystemControlBackgroundAltHighBrush}" Padding="16,12">
+            <Grid ColumnDefinitions="*,Auto">
+                <TextBlock Name="stepText" Grid.Column="0" VerticalAlignment="Center" Opacity="0.7"/>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" Spacing="8">
+                    <Button Name="backButton" Content="Back" MinWidth="90" Click="OnBackClick"/>
+                    <Button Name="nextButton" Content="Next" MinWidth="90" IsDefault="True" Click="OnNextClick"/>
+                    <Button Name="finishButton" Content="Install" MinWidth="90" IsVisible="False" Classes="accent" Click="OnFinishClick"/>
+                    <Button Name="cancelButton" Content="Cancel" MinWidth="90" Click="OnCancelClick"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- Busy overlay -->
+        <Panel Name="busyPanel" Grid.RowSpan="2" Background="#CC000000" IsVisible="False">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center" Spacing="16" MaxWidth="520">
+                <ProgressBar IsIndeterminate="True" Width="320"/>
+                <TextBlock Name="busyText" Foreground="White" TextWrapping="Wrap" TextAlignment="Center"/>
+            </StackPanel>
+        </Panel>
+    </Grid>
+</Window>

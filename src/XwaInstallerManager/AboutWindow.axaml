@@ -1,0 +1,35 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="320"
+        x:Class="XwaInstallerManager.AboutWindow"
+        Title="About Xwa Installer Manager"
+        Width="480" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+    <StackPanel Margin="28" Spacing="10">
+        <StackPanel Orientation="Horizontal" Spacing="12">
+            <mi:MaterialIcon Kind="Information" Width="40" Height="40" VerticalAlignment="Center"/>
+            <StackPanel VerticalAlignment="Center">
+                <TextBlock Text="X-Wing Alliance Installer Manager" FontSize="20" FontWeight="SemiBold"/>
+                <TextBlock Name="versionText" Opacity="0.7"/>
+            </StackPanel>
+        </StackPanel>
+
+        <TextBlock TextWrapping="Wrap" Margin="0,12,0,0"
+                   Text="A cross platform tool to easily download and install X-Wing Alliance installers and mods."/>
+        <TextBlock TextWrapping="Wrap" Margin="0,12,0,0"
+                   Text="Based on the xwaupgrade.com project's XWA Installer Manager that is windows only written by Jérémy Ansel."/>
+        <TextBlock TextWrapping="Wrap" Margin="0,12,0,0"
+                   Text="This version has many improvements over the original."/>
+        <TextBlock TextWrapping="Wrap" Opacity="0.75"
+                   Text="Cross Platform port built with .NET 10 and Avalonia."/>
+        <TextBlock TextWrapping="Wrap" Opacity="0.6" Margin="0,8,0,0"
+                   Text="Copyright © 2026 Anthony Irwin"/>
+
+        <Button Content="Close" HorizontalAlignment="Right" MinWidth="88" Margin="0,16,0,0" Click="OnCloseClick"/>
+    </StackPanel>
+</Window>

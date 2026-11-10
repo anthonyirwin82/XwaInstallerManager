@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/XwaInstallerLibCore/XwaInstallerLibCore.csproj" />
+    <Project Path="src/XwaInstallerManager/XwaInstallerManager.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/XwaInstallerManager.Tests/XwaInstallerManager.Tests.csproj" />
+  </Folder>
+</Solution>

@@ -1,0 +1,30 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="460" d:DesignHeight="240"
+        x:Class="XwaInstallerLibCore.MessageDialog"
+        Width="460" MinHeight="200" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+    <Grid RowDefinitions="Auto,*,Auto" Margin="20,16,20,16">
+        <StackPanel Grid.Row="0" Orientation="Horizontal" Spacing="12" Margin="0,0,0,12">
+            <mi:MaterialIcon Name="icon" Width="32" Height="32" VerticalAlignment="Top"/>
+            <TextBlock Name="titleText" FontWeight="SemiBold" FontSize="16" VerticalAlignment="Center" TextWrapping="Wrap"/>
+        </StackPanel>
+
+        <Border Grid.Row="1" Background="{DynamicResource SystemControlBackgroundAltHighBrush}" CornerRadius="4" Padding="12">
+            <ScrollViewer MaxHeight="320" VerticalScrollBarVisibility="Auto">
+                <SelectableTextBlock Name="messageText" TextWrapping="Wrap"/>
+            </ScrollViewer>
+        </Border>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8" Margin="0,16,0,0">
+            <Button Name="noButton" Content="No" MinWidth="88" IsVisible="False" Click="OnNoClick"/>
+            <Button Name="okButton" Content="OK" MinWidth="88" IsDefault="True" Click="OnOkClick"/>
+            <Button Name="yesButton" Content="Yes" MinWidth="88" IsVisible="False" Click="OnYesClick"/>
+        </StackPanel>
+    </Grid>
+</Window>

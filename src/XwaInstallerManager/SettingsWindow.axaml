@@ -1,0 +1,97 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:XwaInstallerManager"
+        xmlns:mi="clr-namespace:Material.Icons.Avalonia;assembly=Material.Icons.Avalonia"
+        mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="620"
+        x:Class="XwaInstallerManager.SettingsWindow"
+        Title="Settings"
+        Width="480" Height="740"
+        MinWidth="420" MinHeight="500"
+        WindowStartupLocation="CenterOwner"
+        ShowInTaskbar="False"
+        UseLayoutRounding="True">
+    <Grid RowDefinitions="*,Auto">
+        <ScrollViewer Grid.Row="0" Padding="20,16">
+            <StackPanel Spacing="10">
+                <TextBlock Text="Mod directory" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0"/>
+
+                <DockPanel LastChildFill="True">
+                    <Button Name="mainBrowseButton" DockPanel.Dock="Right" Padding="8" Click="OnMainBrowseClick" ToolTip.Tip="Browse">
+                        <mi:MaterialIcon Kind="FolderOpen" Width="18" Height="18"/>
+                    </Button>
+                    <TextBlock Name="mainDescription" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" Opacity="0.8"
+                               Text="Select the directory where you want the installer to place your (multiple) X-Wing: Alliance mod installations. Do NOT select the folder where your vanilla XWA is installed."/>
+                </DockPanel>
+
+                <SelectableTextBlock Name="mainBox" TextWrapping="Wrap" Opacity="0.9"/>
+
+                <TextBlock Text="Extract X-Wing Alliance Game Files From GOG Installer" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0"/>
+
+                <DockPanel LastChildFill="True">
+                    <Button Name="gogBrowseButton" DockPanel.Dock="Right" Padding="8" Click="OnGogBrowseClick" ToolTip.Tip="Browse">
+                        <mi:MaterialIcon Kind="FolderOpen" Width="18" Height="18"/>
+                    </Button>
+                    <TextBlock Name="gogDescription" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" Opacity="0.8"
+                               Text="Select the full GOG X-Wing Alliance setup/installation file. It is extracted into your mod directory as &quot;xwa-original&quot; and set as your vanilla directory.&#10;(You must have innoextract installed and in the path for this to work)"/>
+                </DockPanel>
+
+
+                <TextBlock Text="Vanilla directory" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0"/>
+
+                <DockPanel LastChildFill="True">
+                    <Button Name="vanillaBrowseButton" DockPanel.Dock="Right" Padding="8" Click="OnVanillaBrowseClick" ToolTip.Tip="Browse">
+                        <mi:MaterialIcon Kind="FolderOpen" Width="18" Height="18"/>
+                    </Button>
+                    <TextBlock Name="vanillaDescription" TextWrapping="Wrap" Margin="0,0,8,0" VerticalAlignment="Center" Opacity="0.8"
+                               Text="Select the directory containing your vanilla X-Wing: Alliance installation. It should be a fresh unmodified directory where you have installed the game."/>
+                </DockPanel>
+
+                <SelectableTextBlock Name="vanillaBox" TextWrapping="Wrap" Opacity="0.9"/>
+
+                <TextBlock Text="Update" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0"/>
+
+                <CheckBox Name="checkUpdatesCheckBox" Content="Check updates on startup"/>
+
+                <TextBlock Text="Additional mod sources" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0"/>
+
+                <TextBlock TextWrapping="Wrap" Opacity="0.8"
+                           Text="Add URLs of extra mod list JSON files. Their mods are appended to the download list."/>
+
+                <ItemsControl Name="modSourcesList">
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <DockPanel LastChildFill="True" Margin="0,2">
+                                <Button DockPanel.Dock="Right" Padding="6" Margin="6,0,0,0" Click="OnRemoveModSourceClick" ToolTip.Tip="Remove">
+                                    <mi:MaterialIcon Kind="Delete" Width="16" Height="16"/>
+                                </Button>
+                                <SelectableTextBlock Text="{Binding}" TextWrapping="Wrap" VerticalAlignment="Center" Opacity="0.9"/>
+                            </DockPanel>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+
+                <DockPanel LastChildFill="True">
+                    <Button DockPanel.Dock="Right" Padding="8" Margin="6,0,0,0" Click="OnAddModSourceClick" ToolTip.Tip="Add source">
+                        <mi:MaterialIcon Kind="Plus" Width="18" Height="18"/>
+                    </Button>
+                    <TextBox Name="modSourceBox" PlaceholderText="https://example.com/app-versions.json"/>
+                </DockPanel>
+
+                <StackPanel Name="desktopIconSection" Spacing="10">
+                    <TextBlock Text="Desktop icon" FontWeight="SemiBold" FontSize="16" Margin="0,8,0,0"/>
+
+                    <StackPanel Orientation="Horizontal" Spacing="8">
+                        <Button Name="createIconButton" Padding="8" Click="OnCreateIconClick" ToolTip.Tip="Create desktop icon">
+                            <mi:MaterialIcon Kind="Link" Width="18" Height="18"/>
+                        </Button>
+                        <TextBlock Text="Create a desktop icon for Xwa Installer Manager" VerticalAlignment="Center" TextWrapping="Wrap"/>
+                    </StackPanel>
+                </StackPanel>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Button Grid.Row="1" Name="saveButton" Content="Save settings" HorizontalAlignment="Center" MinWidth="160" Margin="20" Classes="accent" Click="OnSaveClick"/>
+    </Grid>
+</Window>

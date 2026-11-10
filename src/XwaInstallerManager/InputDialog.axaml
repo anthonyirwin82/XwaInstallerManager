@@ -1,0 +1,20 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="480" d:DesignHeight="200"
+        x:Class="XwaInstallerManager.InputDialog"
+        Width="480" SizeToContent="Height"
+        WindowStartupLocation="CenterOwner"
+        CanResize="False"
+        ShowInTaskbar="False">
+    <StackPanel Margin="20" Spacing="12">
+        <TextBlock Name="titleText" FontWeight="SemiBold" TextWrapping="Wrap"/>
+        <TextBlock Name="promptText" TextWrapping="Wrap"/>
+        <TextBox Name="inputBox"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Spacing="8">
+            <Button Content="Cancel" MinWidth="88" Click="OnCancelClick"/>
+            <Button Content="OK" MinWidth="88" IsDefault="True" Classes="accent" Click="OnOkClick"/>
+        </StackPanel>
+    </StackPanel>
+</Window>
